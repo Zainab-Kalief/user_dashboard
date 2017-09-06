@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <style>
+    table{
+      border-collapse: collapse;
+    }
+    table, tr, td {
+        padding: 5px;
+        border: 1px solid black;
+    }
+  </style>
+  <body>
+    <div>
+      <h3>Manage Users</h3>
+      <p>Welcome {{user.first_name}}</p>
+      <form action="{% url 'main:add_user' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Add New User">
+      </form>
+    </div>
+    <a href="{% url 'users:sign_in' %}">Log Out</a>
+    <table>
+      <th>
+        <td>ID</td>
+        <td>NAME</td>
+        <td>EMAIL</td>
+        <td>CREATED_AT</td>
+        <td>USER_LEVEL</td>
+        <td>ACTIONS</td>
+      </th>
+
+      {% for user in users %}
+        {% if user.user_type == True %}
+        <tr>
+          <td></td>
+          <td>{{user.id}}</td>
+          <td><a href="{% url 'main:view_user' user_id=user.id %}">{{user.first_name}}</a></td>
+          <td>{{user.email}}</td>
+          <td>{{user.created_at}}</td>
+          <td>admin</td>
+          <td><a href="{% url 'main:edit_profile' user_id=user.id %}">edit</a> <a href="{% url 'main:remove_page' user_id=user.id %}">remove</a></td>
+        </tr>
+        {% else %}
+        <tr>
+          <td></td>
+          <td>{{user.id}}</td>
+          <td><a href="{% url 'main:view_user' user_id=user.id %}">{{user.first_name}}</a></td>
+          <td>{{user.email}}</td>
+          <td>{{user.created_at}}</td>
+          <td>normal</td>
+          <td><a href="{% url 'main:edit_profile' user_id=user.id %}">edit</a> <a href="{% url 'main:remove_page' user_id=user.id %}">remove</a></td>
+        </tr>
+        {% endif %}
+      {% endfor %}
+
+    </table>
+  </body>
+</html>

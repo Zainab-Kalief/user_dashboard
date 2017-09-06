@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <style>
+    table{
+      border-collapse: collapse;
+    }
+    table, tr, td {
+        padding: 5px;
+        border: 1px solid black;
+    }
+  </style>
+  <body>
+    <div class="">
+      <h3>All Users</h3>
+      <p>Welcome {{user.first_name}}</p>
+      <button type="button" name="button"><a href="{% url 'main:edit_profile' user_id=user.id %}">Edit Profile</a></button>
+    </div>
+    <a href="{% url 'users:sign_in' %}">Log Out</a>
+    <table>
+      <th>
+        <td>ID</td>
+        <td>NAME</td>
+        <td>EMAIL</td>
+        <td>CREATED_AT</td>
+        <td>USER_LEVEL</td>
+      </th>
+
+      {% for user in users %}
+        <tr>
+          <td></td>
+          <td>{{user.id}}</td>
+          <td><a href="{% url 'main:view_user' user_id=user.id %}">{{user.first_name}}</a></td>
+          <td>{{user.email}}</td>
+          <td>{{user.created_at}}</td>
+          <td>normal</td>
+        </tr>
+      {% endfor %}
+    </table>
+    <h4>Your bio</h4>
+    <p>{{user.last_name}}</p>
+    <p>{{user.description}}</p>
+    <p>{{user.email}}</p>
+  </body>
+</html>

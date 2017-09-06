@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>{{user.first_name}}</h1>
+    <h3>ID: {{user.id}}</h3>
+    <h3>Registered on: {{user.created_at}}</h3>
+    <h3>Registered on: {{user.email}}</h3>
+    <h3>Description: {{user.description}}</h3>
+
+    <form action="{% url 'main:post_message' user_id=user.id %}" method="post">
+      <p>Leave a message for {{user.first_name}}</p>
+      {% csrf_token %}
+      <textarea name="message" rows="8" cols="80"></textarea>
+      <input type="submit" value="Post">
+    </form>
+
+    {% for message in messages %}
+    {% load humanize %}
+      <p>{{message.sender.first_name}} wrote - {{message.created_at|naturaltime}}</p>
+      <h4>{{message.message}}</h4>
+    {% endfor %}
+  </body>
+</html>

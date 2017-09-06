@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <button type="button" name="button"><a href="{% url 'main:dashboard_admin' %}">Return To Dashboard</a></button>
+    <h2>Add a new user</h2>
+    <form  action="{% url 'main:create_user' %}" method="post">
+      {% csrf_token %}
+      <input type="text" name="first_name" placeholder="first name"><p></p>
+      <input type="text" name="last_name" placeholder="last name"><p></p>
+      <input type="email" name="email" placeholder="email address"><p></p>
+      <input type="text" name="password"  placeholder="password"><p></p>
+      <input type="text" name="confirm_password"  placeholder="confirm password"><p></p>
+      <input type="submit" value="Create">
+    </form>
+    {% if messages %}
+      {% for message in messages %}
+        {% if 'sign_up' in message.tags %}
+           <p>{{message}}</p>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  </body>
+</html>

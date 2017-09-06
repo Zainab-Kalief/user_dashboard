@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      div{
+        display: inline-block;
+        border: 2px black solid;
+        padding: 20px;
+        margin: 20px;
+      }
+      section{
+        border: 2px black solid;
+        padding: 20px;
+        margin: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Edit Profile</h1>
+    <main>
+      <div>
+        Edit Information
+        <form  action="{% url 'main:edit_info' user_id=user.id %}" method="post">
+          {% csrf_token %}
+          <input type="text" name="first_name" value="{{user.first_name}}"><p></p>
+          <input type="text" name="last_name" value="{{user.last_name}}"><p></p>
+          <input type="email" name="email" value="{{user.email}}"><p></p>
+          <input type="submit" value="Save">
+        </form>
+      </div>
+      {% if messages %}
+        {% for message in messages %}
+          {% if 'edit_info' in message.tags %}
+             <p>{{message}}</p>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+      <div>
+        Change Password
+        <form  action="{% url 'main:change_password' user_id=user.id %}" method="post">
+          {% csrf_token %}
+          <input type="text" name="password"  placeholder="password"><p></p>
+          <input type="text" name="confirm_password"  placeholder="confirm password"><p></p>
+          <input type="submit" value="Update Password">
+        </form>
+      </div>
+      {% if messages %}
+        {% for message in messages %}
+          {% if 'password' in message.tags %}
+             <p>{{message}}</p>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    </main>
+
+    <section>
+      Edit Description
+      <form action="{% url 'main:change_description' user_id=user.id %}" method="post">
+        {% csrf_token %}
+        <textarea name="description" rows="8" cols="80"></textarea>
+        <input type="submit" value="Save">
+      </form>
+    </section>
+    {% if messages %}
+      {% for message in messages %}
+        {% if 'description' in message.tags %}
+           <p>{{message}}</p>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  </body>
+</html>

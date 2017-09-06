@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      main{
+        width: 80%;
+        margin: auto;
+        background-color: blue;
+        padding: 10px;
+      }
+      form{
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Welcome to the Test</h1>
+      <h2>We are going to build a cool application using a MVC framework! This app was built by Wura</h2>
+      <form  action="{% url 'users:sign_in' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Start">
+      </form>
+    </main>
+  </body>
+</html>
